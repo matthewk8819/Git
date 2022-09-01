@@ -19,12 +19,12 @@ public class Blob {
 	public Blob (String file) throws IOException {
 		String ret = "";
 		try {//takes in file, reads in to contents
-		      File myObj = new File(file);
-		      Scanner myReader = new Scanner(myObj);
-		      while (myReader.hasNextLine()) {
-		        ret+= myReader.nextLine();
+		      File f = new File(file);
+		      Scanner in = new Scanner(f);
+		      while (in.hasNextLine()) {
+		        ret+= in.nextLine();
 		      }
-		      myReader.close();
+		      in.close();
 		    } catch (FileNotFoundException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
