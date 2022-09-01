@@ -3,6 +3,10 @@ import java.security.*;
 import java.math.*;
 import java.util.*;
 import java.io.*;
+import java.nio.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 
@@ -33,16 +37,28 @@ public class Blob {
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
-		    File myObj = new File("Objects/" + hashedContents + ".txt");
-		    
+		
+		//File f = new File("objects/"+ hashedContents + ".txt");
+		    try {
+		    	Path p = Paths.get("Test/Objects/" + hashedContents + ".txt");
+		    	Files.createFile(p);
+		    	//System.out.println(f.createNewFile());
+		    	
+		    	FileWriter myWriter = new FileWriter(hashedContents + ".txt");
+		        myWriter.write(contents);
+		        myWriter.close();
+		        System.out.println("Successfully wrote to the file.");
+		      } catch (IOException e) {
+		        System.out.println("An error occurred.");
+		        e.printStackTrace();
+		      }
 	}
 	
 	
-	public String getSha1 (String input) {
+	
+	private String getSha1 (String input) {
 		String value = input;
 		String sha1 = "";
-		
-		// With the java libraries
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
 	        digest.reset();
