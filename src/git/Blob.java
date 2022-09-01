@@ -2,15 +2,43 @@ package git;
 import java.security.*;
 import java.math.*;
 import java.util.*;
+import java.io.*;
+
 
 
 public class Blob {
 	
-	public static void main (String [] args) {
-		System.out.println(getSha1("hello"));
+	private String contents;
+	
+	private String hashedContents;
+	
+	public Blob (String file) throws IOException {
+		String ret = "";
+		try {//takes in file, reads in to contents
+		      File myObj = new File(file);
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        ret+= myReader.nextLine();
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		contents = ret;//contents = what was read in
+		hashedContents = getSha1(contents);//call the hash method on the contents, save it in hashedContents
+		createFile();
+		System.out.println(ret);
+		System.out.println(hashedContents);
 	}
 	
-	public static String getSha1 (String input) {
+	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
+		    File myObj = new File("Objects/" + hashedContents + ".txt");
+		    
+	}
+	
+	
+	public String getSha1 (String input) {
 		String value = input;
 		String sha1 = "";
 		
