@@ -37,21 +37,10 @@ public class Blob {
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
-		
-		//File f = new File("objects/"+ hashedContents + ".txt");
-//		    try {
-		    	Path p = Paths.get("Test/Objects/" + hashedContents + ".txt");
-		    	Files.createFile(p);
-		    	//System.out.println(f.createNewFile());
-		    	File f = new File(hashedContents + ".txt");
-		    	FileWriter myWriter = new FileWriter(f);
-		        myWriter.write(contents);
-		        myWriter.close();
-		        //System.out.println("Successfully wrote to the file.");
-//		      } catch (IOException e) {
-//		        System.out.println("An error occurred.");
-//		        e.printStackTrace();
-//		      }
+		File f = new File("Test/Objects/" + hashedContents + ".txt");
+		FileWriter writer = new FileWriter(f);
+		writer.append(contents);
+		writer.close();
 	}
 	
 	
