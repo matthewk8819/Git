@@ -43,11 +43,11 @@ public class Blob {
 		    	Path p = Paths.get("Test/Objects/" + hashedContents + ".txt");
 		    	Files.createFile(p);
 		    	//System.out.println(f.createNewFile());
-		    	
-//		    	FileWriter myWriter = new FileWriter(hashedContents + ".txt");
-//		        myWriter.write(contents);
-//		        myWriter.close();
-		        System.out.println("Successfully wrote to the file.");
+		    	File f = new File(hashedContents + ".txt");
+		    	FileWriter myWriter = new FileWriter(f);
+		        myWriter.write(contents);
+		        myWriter.close();
+		        //System.out.println("Successfully wrote to the file.");
 //		      } catch (IOException e) {
 //		        System.out.println("An error occurred.");
 //		        e.printStackTrace();
