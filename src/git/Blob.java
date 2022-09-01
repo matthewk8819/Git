@@ -45,7 +45,7 @@ public class Blob {
 	
 	
 	
-	private String getSha1 (String input) {
+	public String getSha1 (String input) {
 		String value = input;
 		String sha1 = "";
 		try {
