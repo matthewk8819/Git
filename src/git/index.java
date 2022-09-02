@@ -42,10 +42,25 @@ public class Index {
 		fw.close();
 	}
 	
-	public void remove(String fileName) {
-		String wo = Blob.getSha1(fileName);
-		File f = new File("Test/Objects/" + wo + ".txt");
-		f.delete();
+	public void remove(String fileName) throws IOException {
+		int length = fileName.length();//=7
+		String sha = indexMap.get(fileName);
+		File f = new File("Test/Objects/" + sha + ".txt");
+		f.delete();//correctly deletes actual file
+		String whatsLeft = "";
+		Scanner in = new Scanner(indexFile);
+		while(in.hasNextLine()) {
+			String newLine = in.nextLine();
+			if (newLine.substring(0,length).equals(fileName)) {//if the first _ letters = fileName 
+				
+			}
+			else {
+				whatsLeft +=newLine + "\n";
+			}
+		}
+		FileWriter fw = new FileWriter(indexFile);
+		fw.append(whatsLeft);
+		fw.close();
 	}
 	
 	
