@@ -16,6 +16,10 @@ public class Blob {
 	
 	private String hashedContents;
 	
+	public String getHashed() {
+		return hashedContents;
+	}
+	
 	public Blob (String file) throws IOException {
 		String ret = "";
 		try {//takes in file, reads in to contents
@@ -37,7 +41,7 @@ public class Blob {
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
-		File f = new File("Test/Objects/" + hashedContents + ".txt");
+		File f = new File("Test/Objects/" + hashedContents + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
 		writer.append(contents);
 		writer.close();
@@ -45,7 +49,7 @@ public class Blob {
 	
 	
 	
-	public String getSha1 (String input) {
+	public static String getSha1 (String input) {
 		String value = input;
 		String sha1 = "";
 		try {

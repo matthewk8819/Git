@@ -11,5 +11,7 @@ public class indextester {
 		
 		index.add("foo.txt");
 		index.add("bar.txt");
+		
+		index.remove("foo.txt");
 	}
 }
