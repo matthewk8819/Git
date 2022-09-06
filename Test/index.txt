@@ -1,1 +1,3 @@
 bar.txt : a5d5c1bba91fdb6c669e1ae0413820885bbfc455
+NEW TEXT.txt : e3a8a66bde9e4dcca47eddd6c14e79b63c653fa9
+foobar.txt : 26c01e70a337f208f56dae1c3bc18f60c4bff453

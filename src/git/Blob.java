@@ -2,6 +2,8 @@ package git;
 import java.security.*;
 import java.math.*;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import java.io.*;
 import java.nio.*;
 import java.nio.file.Files;
@@ -34,10 +36,13 @@ public class Blob {
 		      e.printStackTrace();
 		    }
 		contents = ret;//contents = what was read in
+		//HERE WOULD BE: CONTENTS = GETZIP(CONTENTS);
+		System.out.println("ZIPPED: " + getZip(contents));
 		hashedContents = getSha1(contents);//call the hash method on the contents, save it in hashedContents
 		createFile();
 		System.out.println(ret);
 		System.out.println(hashedContents);
+		System.out.println();
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
@@ -47,7 +52,22 @@ public class Blob {
 		writer.close();
 	}
 	
-	
+	private String getZip (String input) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Test String");
+
+		File f = new File("d:\\test.zip");
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
+		ZipEntry e = new ZipEntry("mytext.txt");
+		out.putNextEntry(e);
+
+		byte[] data = sb.toString().getBytes();
+		out.write(data, 0, data.length);
+		out.closeEntry();
+
+		out.close();
+		return sb.toString();
+	}
 	
 	public static String getSha1 (String input) {
 		String value = input;

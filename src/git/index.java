@@ -23,21 +23,15 @@ public class Index {
 	
 	public void add(String fileName) throws IOException {//add blob to objects folder, do the index with the fileName : hashedContents
 		Blob b = new Blob("Test/" + fileName);//filename ex = foo.txt
-//		Scanner txtScanner = new Scanner(fileName);
-//		String str = "";
-//		while (txtScanner.hasNextLine()) {
-//			str+=txtScanner.nextLine();
-//		}
-//		String sha = Blob.getSha1(str);
 		String sha = b.getHashed();
 		indexMap.put(fileName, sha);
 		Scanner s = new Scanner(indexFile);
 		String alreadyIndexed = "";
 		while (s.hasNextLine()) {
-			alreadyIndexed+=s.nextLine();
+			alreadyIndexed+=s.nextLine() + "\n";
 		}
 		FileWriter fw = new FileWriter(indexFile);
-		fw.append(alreadyIndexed + "\n" + fileName + " : " + sha);
+		fw.append(alreadyIndexed+ fileName + " : " + sha);
 		
 		fw.close();
 	}
@@ -55,7 +49,8 @@ public class Index {
 				
 			}
 			else {
-				whatsLeft +=newLine + "\n";
+				whatsLeft +=newLine;
+				whatsLeft += "\n";
 			}
 		}
 		FileWriter fw = new FileWriter(indexFile);
