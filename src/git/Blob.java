@@ -2,6 +2,7 @@ package git;
 import java.security.*;
 import java.math.*;
 import java.util.*;
+import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import java.io.*;
@@ -15,6 +16,8 @@ import java.nio.file.Paths;
 public class Blob {
 	
 	private String contents;
+	
+	private String zippedContents;
 	
 	private String hashedContents;
 	
@@ -37,8 +40,9 @@ public class Blob {
 		    }
 		contents = ret;//contents = what was read in
 		//HERE WOULD BE: CONTENTS = GETZIP(CONTENTS);
+		zippedContents = getZip(contents);
 		System.out.println("ZIPPED: " + getZip(contents));
-		hashedContents = getSha1(contents);//call the hash method on the contents, save it in hashedContents
+		hashedContents = getSha1(zippedContents);//call the hash method on the contents(now zipped contents), save it in hashedContents
 		createFile();
 		System.out.println(ret);
 		System.out.println(hashedContents);
@@ -48,26 +52,21 @@ public class Blob {
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
 		File f = new File("Test/Objects/" + hashedContents + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
-		writer.append(contents);
+		writer.append(zippedContents);
 		writer.close();
 	}
 	
-	private String getZip (String input) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Test String");
+	private  String getZip(String str) throws IOException {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
 
-		File f = new File("d:\\test.zip");
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
-		ZipEntry e = new ZipEntry("mytext.txt");
-		out.putNextEntry(e);
-
-		byte[] data = sb.toString().getBytes();
-		out.write(data, 0, data.length);
-		out.closeEntry();
-
-		out.close();
-		return sb.toString();
-	}
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(out);
+        gzip.write(str.getBytes());
+        gzip.close();
+        return out.toString("ISO-8859-1");
+    }
 	
 	public static String getSha1 (String input) {
 		String value = input;
