@@ -46,7 +46,6 @@ public class Blob {
 		System.out.println(hashedContents);
 		System.out.println();
 		
-		//zip();
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
@@ -56,21 +55,7 @@ public class Blob {
 		writer.close();
 	}
 	
-	private void zip() throws IOException {//zip the existing file that is in the folder
-		StringBuilder sb = new StringBuilder();
-		sb.append("Test String");
-
-		File f = new File("Test/Objects");
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
-		ZipEntry e = new ZipEntry("mytext.txt");
-		out.putNextEntry(e);
-
-		byte[] data = sb.toString().getBytes();
-		out.write(data, 0, data.length);
-		out.closeEntry();
-
-		out.close();
-    }
+	
 	
 	public static String getSha1 (String input) {
 		String value = input;
