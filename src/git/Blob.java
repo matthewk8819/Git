@@ -40,32 +40,36 @@ public class Blob {
 		    }
 		contents = ret;//contents = what was read in
 		//HERE WOULD BE: CONTENTS = GETZIP(CONTENTS);
-		zippedContents = getZip(contents);
-		System.out.println("ZIPPED: " + getZip(contents));
-		hashedContents = getSha1(zippedContents);//call the hash method on the contents(now zipped contents), save it in hashedContents
+		hashedContents = getSha1(contents);//call the hash method on the contents(now zipped contents), save it in hashedContents
 		createFile();
 		System.out.println(ret);
 		System.out.println(hashedContents);
 		System.out.println();
+		
+		//zip();
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
 		File f = new File("Test/Objects/" + hashedContents + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
-		writer.append(zippedContents);
+		writer.append(hashedContents);
 		writer.close();
 	}
 	
-	private  String getZip(String str) throws IOException {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
+	private void zip() throws IOException {//zip the existing file that is in the folder
+		StringBuilder sb = new StringBuilder();
+		sb.append("Test String");
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(out);
-        gzip.write(str.getBytes());
-        gzip.close();
-        return out.toString("ISO-8859-1");
+		File f = new File("Test/Objects");
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
+		ZipEntry e = new ZipEntry("mytext.txt");
+		out.putNextEntry(e);
+
+		byte[] data = sb.toString().getBytes();
+		out.write(data, 0, data.length);
+		out.closeEntry();
+
+		out.close();
     }
 	
 	public static String getSha1 (String input) {
