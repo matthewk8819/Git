@@ -40,13 +40,7 @@ public class Blob {
 		    }
 		contents = ret;//contents = what was read in
 		//HERE WOULD BE: CONTENTS = GETZIP(CONTENTS);
-<<<<<<< HEAD
 		hashedContents = getSha1(contents);//call the hash method on the contents(now zipped contents), save it in hashedContents
-=======
-		zippedContents = getZip(contents);
-		System.out.println("ZIPPED: " + getZip(contents));
-		hashedContents = getSha1(zippedContents);//call the hash method on the contents(now zipped contents), save it in hashedContents
->>>>>>> main
 		createFile();
 		System.out.println(ret);
 		System.out.println(hashedContents);
@@ -58,7 +52,6 @@ public class Blob {
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
 		File f = new File("Test/Objects/" + hashedContents + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
-<<<<<<< HEAD
 		writer.append(hashedContents);
 		writer.close();
 	}
@@ -77,22 +70,6 @@ public class Blob {
 		out.closeEntry();
 
 		out.close();
-=======
-		writer.append(zippedContents);
-		writer.close();
-	}
-	
-	private  String getZip(String str) throws IOException {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(out);
-        gzip.write(str.getBytes());
-        gzip.close();
-        return out.toString("ISO-8859-1");
->>>>>>> main
     }
 	
 	public static String getSha1 (String input) {
