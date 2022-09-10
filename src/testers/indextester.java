@@ -10,12 +10,16 @@ public class indextester {
 		index.init();
 		
 		index.add("foo.txt");
+		index.add("Stuff.txt");
 		index.add("bar.txt");
-		index.add("NEW TEXT.txt");
 		index.add("foobar.txt");
+		index.add("anything");
 		
-		index.remove("NEW TEXT.txt");
-		index.remove("foo.txt");
+//		index.remove("foo.txt");
+//		index.remove("bar.txt");
+//		index.remove("foobar.txt");
+//		index.remove("Stuff.txt");
+//		index.remove("bro");
 		
 	}
 }

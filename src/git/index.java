@@ -22,6 +22,9 @@ public class Index {
 	}
 	
 	public void add(String fileName) throws IOException {//add blob to objects folder, do the index with the fileName : hashedContents
+		File f = new File("Test/" + fileName);
+		if (f.exists()) {
+			
 		Blob b = new Blob("Test/" + fileName);//filename ex = foo.txt
 		String sha = b.getHashed();
 		indexMap.put(fileName, sha);
@@ -34,6 +37,7 @@ public class Index {
 		fw.append(alreadyIndexed+ fileName + " : " + sha);
 		
 		fw.close();
+		}
 	}
 	
 	public void remove(String fileName) throws IOException {

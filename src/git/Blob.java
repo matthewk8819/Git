@@ -11,22 +11,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/*
+ * Note to self: 
+ * changes for zipped: added zip and hashedZip variables, 
+ * zip: variable contianing the zipped version of contents
+ * hashedZip: variable containing the hashed version of zip
+ * 
+ * chnages in code: 
+ * 1) In createFile method, replaced hashedContents with hashedZip
+ * 2) in createFIle method, replaced contents with zip
+ * 3) in getHashed method, replaced hashedContents with hashedZip
+ */
 
 public class Blob {
 	
 	private String contents;
+		
+	private String hashedContents;//sha1 of contents
 	
-	private String zippedContents;
+	private String zip;
 	
-	private String hashedContents;
+	private String hashedZip; 
 	
 	public String getHashed() {
-		return hashedContents;
+		return hashedZip;
 	}
 	
 	public Blob (String file) throws IOException {
-		String ret = "";
+		String ret = "";//read in contents into this variable
 		try {//takes in file, reads in to contents
 		      File f = new File(file);
 		      Scanner in = new Scanner(f);
@@ -41,30 +53,34 @@ public class Blob {
 		contents = ret;//contents = what was read in
 		//HERE WOULD BE: CONTENTS = GETZIP(CONTENTS);
 		hashedContents = getSha1(contents);//call the hash method on the contents(now zipped contents), save it in hashedContents
+		this.zip = zip();
+		this.hashedZip = getSha1(zip());
 		createFile();
-		System.out.println(ret);
-		System.out.println(hashedContents);
+		System.out.println("File name: " + file);
+		System.out.println("File Contents: " + contents);
+		System.out.println("Sha1 of Contents: " + hashedContents);
+		System.out.println("Zipped Contents: " + zip);
+		System.out.println("Sha1 of Zipped Contents: " + hashedZip);
 		System.out.println();
-		//zip();
+
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
-		File f = new File("Test/Objects/" + hashedContents + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
+		File f = new File("Test/Objects/" + hashedZip + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
-		writer.append(contents);
+		writer.append(zip);
 		writer.close();
 	}
 	
-	
-	private String zip() throws IOException {
-		 	ByteArrayOutputStream out = new ByteArrayOutputStream();
-	        GZIPOutputStream gzip = new GZIPOutputStream(out);
-//	        gzip.write(contents.getBytes());
-	        System.out.println(contents.getBytes());
-	        gzip.close();
-	        return out.toString("ISO-8859-1");
+
+	private String zip() throws IOException {//returns zipped version of contents
+		String str = contents;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(out);
+        gzip.write(str.getBytes());
+        gzip.close();
+        return out.toString("ISO-8859-1");
 	}
-	
 	
 	public static String getSha1 (String input) {
 		String value = input;
