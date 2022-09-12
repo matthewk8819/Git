@@ -2,11 +2,12 @@ package testers;
 
 import java.io.IOException;
 
-import git.Index;
+
+import git.index;
 
 public class indextester {
 	public static void main (String [] args) throws IOException{
-		Index index = new Index ();
+		index index = new index ();
 		index.init();
 		
 		index.add("foo.txt");
