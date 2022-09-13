@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -43,13 +44,23 @@ class JUnitBlob {
 		Blob bnew = new Blob ("test.txt"); 
 		String sha1 = bnew.getSha1("test.txt");
 		assertTrue(sha1.equals("adc83b19e793491b1c6ea0fd8b46cd9f32e592fc"));
+		
 	}
 	
 	@Test
 	void testingIfExists (){
-		Path p = Paths.get("junit.txt");
+		Path p = Paths.get("test.txt");
 		assertTrue(Files.exists(p));
 	}
+	
+	@Test 
+	void testingifInObjectsFolder () throws IOException{
+		Blob blobbie = new Blob ("test.txt");
+		
+		File f = new File("./objects/adc83b19e793491b1c6ea0fd8b46cd9f32e592fc");
+		assertTrue(f.exists()); 
+	}
+	
 	
 	
 
