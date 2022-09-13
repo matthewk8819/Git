@@ -45,6 +45,11 @@ class JUnitBlob {
 		assertTrue(sha1.equals("adc83b19e793491b1c6ea0fd8b46cd9f32e592fc"));
 	}
 	
+	@Test
+	void testingIfExists (){
+		Path p = Paths.get("junit.txt");
+		assertTrue(Files.exists(p));
+	}
 	
 	
 
