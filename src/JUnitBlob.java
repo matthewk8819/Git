@@ -47,18 +47,26 @@ class JUnitBlob {
 		
 	}
 	
-	@Test
-	void testingIfExists (){
-		Path p = Paths.get("test.txt");
-		assertTrue(Files.exists(p));
-	}
 	
 	@Test 
-	void testingifInObjectsFolder () throws IOException{
+	void testingifInObjectsFolderandIfExists () throws IOException{
 		Blob blobbie = new Blob ("test.txt");
 		
 		File f = new File("./objects/adc83b19e793491b1c6ea0fd8b46cd9f32e592fc");
 		assertTrue(f.exists()); 
+	}
+	
+	@Test
+	void testingIfObjectsDirectoryExists() throws IOException {
+		Blob blobbie = new Blob ("test.txt");
+		
+		File file = new File ("index"); 
+		assertTrue(file.exists()); 
+		
+		
+		Path p = Paths.get("objects");
+		assertTrue(Files.exists(p));
+		
 	}
 	
 	
