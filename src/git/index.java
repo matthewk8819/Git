@@ -10,7 +10,7 @@ public class index {
 	
 	
 	public index() throws IOException {
-		init();
+		
 	}
 	
 	//makes an object folder, index file 
