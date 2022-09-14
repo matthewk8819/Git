@@ -1,6 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -23,12 +25,12 @@ class JUnitBlob {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		FileUtil.writeStringToFile("test.txt");
+		FileUtil.writeStringToFile("naalah.txt");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		FileUtil.deleteStringToFile("test.txt");
+		FileUtil.deleteStringToFile("naalah.txt");
 	}
 
 	@BeforeEach
@@ -41,35 +43,72 @@ class JUnitBlob {
 	}
 
 	@Test
-	void test() throws IOException {
-		Blob bnew = new Blob ("test.txt"); 
-		String sha1 = bnew.getSha1("test.txt");
-		assertTrue(sha1.equals("adc83b19e793491b1c6ea0fd8b46cd9f32e592fc"));
-		
-	}
-	
-	
-	@Test 
-	void testingifInObjectsFolderandIfExists () throws IOException{
-		Blob blobbie = new Blob ("test.txt");
-		
-		File f = new File("./objects/adc83b19e793491b1c6ea0fd8b46cd9f32e592fc");
-		assertTrue(f.exists()); 
+	void testingFileContents() throws IOException {
+		Blob bnew = new Blob ("naalah.txt");
+		String sha1 = bnew.getSha1("hi poopie pants ");
+		System.out.println(sha1); 
+		assertTrue(sha1.equalsIgnoreCase("8CB1F7AD8A6EA433BC04A3B374813448448D8740"));
 	}
 	
 	@Test
-	void testingIfObjectsDirectoryExists() throws IOException {
-		Blob blobbie = new Blob ("test.txt");
-		blobbie.init();
-		
-		File file = new File ("index"); 
-		assertTrue(file.exists()); 
-		
-		
-		Path p = Paths.get("objects");
+	void testingFileLocationandName () throws IOException{
+		Blob bnew = new Blob ("naalah.txt");
+		Path p = Paths.get("8CB1F7AD8A6EA433BC04A3B374813448448D874");
 		assertTrue(Files.exists(p));
-	}
-	
+//		String sha1 = bnew.getSha1("naalah.txt");
+//		Path
+//		FileUtil,writeStringToFile("")
+//		String path = file.absolutePath (); 
+//		String fileName = path + "8CB1F7AD8A6EA433BC04A3B374813448448D874";
+//		
+//		assertTrue(file.exists("fileName"))
+		
+	} 
+//	
+////
+//	@Test 
+//	void testingifInObjectsFolderandIfExists () throws IOException{
+//		Blob blobbie = new Blob ("test.txt");
+//		
+//		File f = new File("./objects/adc83b19e793491b1c6ea0fd8b46cd9f32e592fc");
+//		assertTrue(f.exists()); 
+//	}
+//	
+//	@Test
+//	void testingIfObjectsDirectoryExists() throws IOException {
+//		Blob blobbie = new Blob ("test.txt");
+//
+//		File file = new File ("index"); 
+//		assertTrue(file.exists()); 
+//		
+//		
+//		Path p = Paths.get("objects");
+//		assertTrue(Files.exists(p));
+//	}
+//	
+//	@Test 
+//	void testingIfIndexExists() throws IOException {
+//		index indexie = new index (); 
+//		indexie.init(); 
+//		assertTrue();
+//	}
+//	
+//	File getFile () {
+//		return 
+//	}
+//	
+//	
+//	@Test
+//	void testingifIndexIsCorrectAfter () throws IOException {
+//		index indexie = new index (); 
+//		indexie.init(); 
+//		FileUtil.writeStringToFile("Test/index.txt");
+//		
+//		Blob blobbie = new Blob ("naalah.txt"); 
+//		
+//	}
+//	
+//	
 	
 	
 
