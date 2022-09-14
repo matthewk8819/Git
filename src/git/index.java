@@ -9,8 +9,8 @@ public class index {
 	private HashMap<String,String> indexMap = new HashMap<String,String>(); //map of the name(txt) and the sha1 of the contents 
 	
 	
-	public index() {
-		
+	public index() throws IOException {
+		init();
 	}
 	
 	//makes an object folder, index file 

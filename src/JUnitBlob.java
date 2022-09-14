@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 
 import git.Blob;
+import git.index;
 
 class JUnitBlob {
 
@@ -59,6 +60,7 @@ class JUnitBlob {
 	@Test
 	void testingIfObjectsDirectoryExists() throws IOException {
 		Blob blobbie = new Blob ("test.txt");
+		blobbie.init();
 		
 		File file = new File ("index"); 
 		assertTrue(file.exists()); 
@@ -66,7 +68,6 @@ class JUnitBlob {
 		
 		Path p = Paths.get("objects");
 		assertTrue(Files.exists(p));
-		
 	}
 	
 	
