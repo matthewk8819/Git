@@ -3,13 +3,13 @@ import java.util.*;
 import java.io.*;
 
 
-public class Index {
+public class index {
 	
 	private File indexFile;
 	private HashMap<String,String> indexMap = new HashMap<String,String>(); //map of the name(txt) and the sha1 of the contents 
 	
 	
-	public Index() {
+	public index() throws IOException {
 		
 	}
 	
