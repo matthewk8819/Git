@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -29,5 +32,15 @@ public class Tree {
 		}
 
 		return sha1;
+	}
+	
+	public void writingToFile (ArrayList <String> arr, String str) throws IOException {
+		
+		FileWriter fw = new FileWriter(new File("objects", str + ".txt"));
+		for(String stringe: arr) {
+		  fw.write(str + System.lineSeparator());
+		}
+		fw.close();
+		
 	}
 }
