@@ -12,6 +12,7 @@ public class Tree {
 		for(int i =0; i < arr.size(); i++) {
 			str += arr.get(i);
 		}
+		return sha1(str);
 		
 	}
 	
