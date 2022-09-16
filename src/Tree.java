@@ -6,8 +6,8 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 public class Tree {
-	public Tree (ArrayList <String> arr) {
-		
+	public Tree (ArrayList <String> arr) throws IOException {
+		writingToFile(arr,generateAll(arr)); 
 	}
 	
 	public String generateAll (ArrayList <String> arr) {
@@ -35,12 +35,10 @@ public class Tree {
 	}
 	
 	public void writingToFile (ArrayList <String> arr, String str) throws IOException {
-		
 		FileWriter fw = new FileWriter(new File("objects", str + ".txt"));
 		for(String stringe: arr) {
 		  fw.write(str + System.lineSeparator());
 		}
 		fw.close();
-		
 	}
 }
