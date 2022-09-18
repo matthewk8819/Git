@@ -17,7 +17,7 @@ public class index {
 	public void init() throws IOException {
 		File f = new File("Test/Objects");
 		f.mkdir();
-		indexFile = new File("Test/index.txt");
+		indexFile = new File("Test/index");
 		FileWriter writer = new FileWriter(indexFile);
 	}
 	
@@ -43,7 +43,7 @@ public class index {
 	public void remove(String fileName) throws IOException {
 		int length = fileName.length();//=7
 		String sha = indexMap.get(fileName);
-		File f = new File("Test/Objects/" + sha + ".txt");
+		File f = new File("Test/Objects/" + sha);
 		f.delete();//correctly deletes actual file
 		String whatsLeft = "";
 		Scanner in = new Scanner(indexFile);

@@ -1,3 +1,4 @@
+package git;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 public class Tree {
+	
 	public Tree (ArrayList <String> arr) throws IOException {
 		writingToFile(arr,generateAll(arr)); 
 	}
@@ -13,7 +15,7 @@ public class Tree {
 	public String generateAll (ArrayList <String> arr) {
 		String str = ""; 
 		for(int i =0; i < arr.size(); i++) {
-			str += arr.get(i);
+			str += arr.get(i) + "\n";
 		}
 		return sha1(str);
 		
@@ -35,7 +37,7 @@ public class Tree {
 	}
 	
 	public void writingToFile (ArrayList <String> arr, String str) throws IOException {
-		FileWriter fw = new FileWriter(new File("objects", str + ".txt"));
+		FileWriter fw = new FileWriter(new File("Objects/", str));//might need to replace with just Objects - idk if i need the /
 		for(String stringe: arr) {
 		  fw.write(str + System.lineSeparator());
 		}

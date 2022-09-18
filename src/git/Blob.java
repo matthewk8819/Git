@@ -66,7 +66,7 @@ public class Blob {
 	}
 	
 	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
-		File f = new File("Test/Objects/" + hashedZip + ".txt");//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
+		File f = new File("Test/Objects/" + hashedZip);//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
 		writer.append(zip);
 		writer.close();
