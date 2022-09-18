@@ -7,11 +7,12 @@ import java.math.BigInteger;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Commit {
 	
-	private Commit child;
-	private Commit parent;
+	private String child = "";
+	private String parent;
 	
 	private String commitName = "";
 	
@@ -27,23 +28,50 @@ public class Commit {
 	}
 	
 	//String tree = tree name, should be sha1 or name of the file
-	public Commit(String tree, String sum, String auth, String par) {
-		this.commitName = getSha1(pTree,summary);
+	public Commit(String tree, String sum, String auth, String par) throws IOException {//par and tree should just be sha1
+		this.pTree = tree;
 		this.summary = sum;
 		this.author = auth;
-		File f = new File (tree);//might need to add Test/Objects/ before
-		this.pTree = f.getPath();
 		this.date = "" + java.time.LocalDate.now();
+		boolean hasParent = false;
+		File parentFile = null;//could be dangerous might change this later 
+		if (par!=null) {
+			parent = par;
+			parentFile = new File ("Test/Objects/" + par);
+			hasParent = true;//later in constructor need to set parent child to this commitName
+		}
+		this.commitName = getSha1();
 		
-		this.child = new Commit();
+		//write to the current file: 
+		writeToFile();
+		
+		if (hasParent) {
+			Scanner parentScanner = new Scanner (new File("Test/Objects/" + par));
+			String firstHalf = "";
+			firstHalf+=parentScanner.nextLine() + "\n";//intakes the parent name
+			firstHalf+=parentScanner.nextLine() + "\n";//intakes parent's parent name
+			parentScanner.nextLine();//skips the empty line bc has no child before this one
+			String secondHalf = "";
+			secondHalf+=parentScanner.nextLine() + "\n";//gets author
+			secondHalf+=parentScanner.nextLine() + "\n";//gets date
+			secondHalf+=parentScanner.nextLine() + "\n";//gets summary
+			FileWriter pWriter = new FileWriter(parentFile);
+			pWriter.append(firstHalf + "Object/" + this.commitName + "\n" + secondHalf);//appends name, parent, then child + new line, then second half
+			pWriter.close();
+		}
 	}
 	
 	private void writeToFile() throws IOException {
 		File f = new File("Test/Objects/" + commitName);
 		FileWriter writer = new FileWriter(f);
-		writer.append(commitName + "\n");
-		writer.append(parent.getCommitName() + "\n");	
-		writer.append(child.getCommitName() + "\n");//IDK IF THIS WORKS
+		writer.append("Object/" + commitName + "\n");
+		if (parent!=null) {
+			writer.append("Object/" + parent + "\n");	
+		}
+		else {
+			writer.append("\n");
+		}
+		writer.append("\n");//every added one has no child yet 
 		writer.append(author + "\n");
 		writer.append(date + "\n");
 		writer.append(summary);
@@ -62,12 +90,8 @@ public class Commit {
 		return this.commitName;
 	}
 	
-	public void setChild (Commit child) {
-		this.child = child;
-	}
-	
-	private static String getSha1 (String fileName, String sum) {
-		String value = fileName + sum;
+	private String getSha1 () {
+		String value = "" + summary + date + author + parent;
 		String sha1 = "";
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
@@ -84,23 +108,18 @@ public class Commit {
 	public String toString() {
 		String str = "";
 		str += commitName + "\n";
-		str += parent.getCommitName() + "\n";
-		str += child.getCommitName() + "\n";
+		str += parent + "\n";
+		str += child + "\n";
 		str += author + "\n";
 		str += date + "\n";
 		str += summary + "\n";
 		return str;
 	}
 	
-	public static void main (String [] args) {
-		Commit commit = new Commit("Tree.txt","This is a summary","Matthew Ko",null);
-		System.out.println(commit.toString());
-		
-		System.out.println("\n");
-		
-		//Commit child = new Commit("newTXT.txt","This is the second summary","Steven Ko",commit);
-//		commit.setChild(child);
-//		System.out.println(child.toString());
+	public static void main (String [] args) throws IOException {
+		Commit commit = new Commit("sha1","This is a summary","Matthew Ko",null);		
+		Commit child = new Commit("sha11","This is the second summary","Steven Ko",commit.getCommitName());
+		Commit secondChild = new Commit("sha111","This is the third summary","Christian Bach",child.getCommitName());
 	}
 	
 }
