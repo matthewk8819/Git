@@ -17,6 +17,7 @@ public class Tree {
 		for(int i =0; i < arr.size(); i++) {
 			str += arr.get(i) + "\n";
 		}
+		System.out.println(sha1(str));
 		return sha1(str);
 		
 	}
@@ -37,9 +38,9 @@ public class Tree {
 	}
 	
 	public void writingToFile (ArrayList <String> arr, String str) throws IOException {
-		FileWriter fw = new FileWriter(new File("Objects/", str));//might need to replace with just Objects - idk if i need the /
+		FileWriter fw = new FileWriter(new File("Test/Objects/", str));//correct folder, name
 		for(String stringe: arr) {
-		  fw.write(str + System.lineSeparator());
+		  fw.write(stringe + System.lineSeparator());
 		}
 		fw.close();
 	}
