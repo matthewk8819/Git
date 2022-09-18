@@ -35,7 +35,7 @@ class TreeTester {
 		
 		//Initialize tree with list, check if file with correct sha1 exists in objects
 		Tree tree = new Tree(list);
-		File file = new File("Test/Objects/dd4840f48a74c1f97437b515101c66834b59b1be");
+		File file = new File("Test/Objects/d30ba5f7fcb23557ff87fc4e0f32bf5370f154cd");
 		assertTrue(file.exists());
 		
 		//Check if all lines exist and are correct 

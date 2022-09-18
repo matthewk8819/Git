@@ -55,7 +55,8 @@ public class Blob {
 		hashedContents = getSha1(contents);//call the hash method on the contents(now zipped contents), save it in hashedContents
 		this.zip = zip();
 		this.hashedZip = getSha1(zip());
-		createFile();
+		createFileNormal();
+		//createFileZip();
 		System.out.println("File name: " + file);
 		System.out.println("File Contents: " + contents);
 		System.out.println("Sha1 of Contents: " + hashedContents);
@@ -64,11 +65,19 @@ public class Blob {
 		System.out.println();
 
 	}
-	
-	private void createFile () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
+	//method for writing with the zip
+	private void createFileZip () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
 		File f = new File("Test/Objects/" + hashedZip);//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
 		FileWriter writer = new FileWriter(f);
+		System.out.println("ADDING: " + zip);
 		writer.append(zip);
+		writer.close();
+	}
+	//method for writing with regular sha1
+	private void createFileNormal () throws IOException{//Goal: create file in the objects folder with a certain name of the hashed contents 
+		File f = new File("Test/Objects/" + hashedContents);//DEPENDENT ON OBJECTS FOLDER NAME = OBJECTS 
+		FileWriter writer = new FileWriter(f);
+		writer.append(contents);
 		writer.close();
 	}
 	
