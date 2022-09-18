@@ -16,19 +16,16 @@ public class Commit {
 	
 	private String commitName = "";
 	
-	private String pTree;//turns sha1 -> filepath
+	private String pTree;//sha1 name of the file 
 	
 	
 	private String summary;
 	private String author;
-	private String date;//Ex. September 13, 2022
-	
-	public Commit() {
-		
-	}
-	
+	private String date;//EX FORMAT: 2022-09-17
+
 	//String tree = tree name, should be sha1 or name of the file
 	public Commit(String tree, String sum, String auth, String par) throws IOException {//par and tree should just be sha1
+		
 		this.pTree = tree;
 		this.summary = sum;
 		this.author = auth;
@@ -90,6 +87,10 @@ public class Commit {
 		return this.commitName;
 	}
 	
+	public void setChild(Commit child) {
+		this.child = child.getCommitName();
+	}
+	
 	private String getSha1 () {
 		String value = "" + summary + date + author + parent;
 		String sha1 = "";
@@ -119,7 +120,9 @@ public class Commit {
 	public static void main (String [] args) throws IOException {
 		Commit commit = new Commit("sha1","This is a summary","Matthew Ko",null);		
 		Commit child = new Commit("sha11","This is the second summary","Steven Ko",commit.getCommitName());
+		commit.setChild(child);
 		Commit secondChild = new Commit("sha111","This is the third summary","Christian Bach",child.getCommitName());
+		child.setChild(secondChild);
 	}
 	
 }
